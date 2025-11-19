@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Storynet - Indian Heroes</title>
+    <link rel="stylesheet" href="contri.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  </head>
+  <body>
+    <nav>
+      <div class="logo">Storynet</div>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li class="dropdown">
+          <a href="index.html" class="dropbtn">Stories</a>
+          <div class="dropdown-content">
+            <a href="#">Freedom Fighters</a>
+            <a href="#">Historical</a>
+            <a href="#">Sportspersons</a>
+          </div>
+        </li>
+        <li class="dropdown">
+          <a href="#" class="dropbtn">For Children</a>
+          <div class="dropdown-content">
+            <a href="#">morels</a>
+            <a href="#">inspiration</a>
+            <a href="#">Fun</a>
+          </div>
+        </li>
+        <li><a href="contri.html">Contribute Your Story</a></li>
+        <li><a href="about.html">About</a></li>
+      
+      </ul>
+    </nav>
+
+     <div class="contribute">
+        <h2>Contribute Your Hero’s Story</h2>
+        <form id="contributeForm" enctype="multipart/form-data">
+    <label for="name">Your Name</label>
+    <input type="text" id="name" name="name" required>
+
+    <label for="email">Email (optional)</label>
+    <input type="email" id="email" name="email">
+
+    <label for="hero">Hero’s Name</label>
+    <input type="text" id="hero" name="hero" required>
+
+    <label for="story">Write Your Story</label>
+    <textarea id="story" name="story" rows="6"></textarea>
+
+    <label for="upload">Or Upload Your Story (PDF/DOC/TXT)</label>
+    <input type="file" id="upload" name="upload" accept=".pdf,.doc,.docx,.txt">
+
+    <button type="submit" >Submit</button>
+</form>
+
+<!-- ✔ ONLY ONE successMsg -->
+<div id="successMsg" class="success"></div>
+
+    </div>   
+    
+
+
+ <script>
+document.addEventListener("DOMContentLoaded", function() {
+    document.getElementById("contributeForm").addEventListener("submit", async function(e) {
+        e.preventDefault();
+        const formData = new FormData(this);
+
+        try {
+            const response = await fetch("http://localhost:3000/api/submit", {
+                method: "POST",
+                body: formData
+            });
+
+            const result = await response.json();
+
+            if (result.success) {
+                document.getElementById("successMsg").textContent =
+                    "✔ Thank you! Your story has been submitted.";
+                this.reset();
+            } else {
+                document.getElementById("successMsg").textContent =
+                    "⚠ Error submitting the form!";
+            }
+
+        } catch (err) {
+            document.getElementById("successMsg").textContent =
+                "⚠ Failed to connect to server!";
+        }
+    });
+});
+</script>
+
+
+
+
+ <footer class="footer">
+
+  <div class="footer-container">
+
+      <!-- ABOUT SECTION -->
+      <div class="footer-section">
+        <h3>ABOUT US</h3>
+        <p>
+          Storynet is a platform where people can read stories 
+          of Indian heroes, freedom fighters, sportspersons and share inspiring 
+          real life stories.
+        </p>
+      </div>
+
+      <!-- FOLLOW US SECTION -->
+      <div class="footer-social">
+    <h3>FOLLOW US</h3>
+    <div class="social-icons">
+        <a href="#" class="icon"><i class="fab fa-twitter"></i></a>
+        <a href="#" class="icon"><i class="fab fa-facebook"></i></a>
+        <a href="#" class="icon"><i class="fab fa-instagram"></i></a>
+    </div>
+    </div>
+      <!-- CONTACT SECTION -->
+      <div class="footer-section">
+        <h3>CONTACT</h3>
+        <p>Email: storynet@gmail.com</p>
+        <p>Whatsapp: +91 8788025768</p>
+      </div>
+   
+  </div>
+ <P class="lastfooter">2025 Storynet. All rights reserved.</P>
+  
+
+</footer>
+  </body>
+</html>
